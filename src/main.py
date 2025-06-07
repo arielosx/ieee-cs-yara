@@ -1,0 +1,2 @@
+import yara
+print('OK')
