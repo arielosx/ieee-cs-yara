@@ -38,7 +38,7 @@ if __name__ == "__main__":
             print(f"❌ Erro: Arquivo 'virus.bat' nao encontrado.")
             print(f"   Certifique-se que 'virus.bat' esta na mesma pasta que este script.")
             print(f"   Pasta atual: {src}")
-            
+
     except yara.Error as e:
         print(f"Erro ao compilar a regra Yara: {e}")
     except Exception as e:
