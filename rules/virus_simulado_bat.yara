@@ -1,4 +1,4 @@
-rule VirusSimuladoBat
+rule BatchScriptModifyCMD
 {
     meta:
         autor = "Grupo 1"
@@ -17,4 +17,17 @@ rule VirusSimuladoBat
     condition:
         // O arquivo deve conter a assinatura unica e pelo menos 3 das outras strings
         $assinatura and 3 of ($cmd*)  //condições para ser definido como virus - assinatura e 3 strings que altere o cmd
+}
+
+rule BatchScriptRequestPOST {
+    meta:
+        author = "Grupo 1"
+        description = "Detecta se um batch script envia arquivos para terceiros"
+    strings:
+        $accessIp = /echo IPv4 Address.+>>/
+        $checkPath = /if exist ".+"/
+        $acessFolder = /for %%\w+ in \(".+\\\*"\) do/
+        $hasHttpPostRequest = /curl --?r(equest)? (POST|PUT|PATCH)/
+    condition:
+        ($checkPath or $acessFolder or $accessIp) and $hasHttpPostRequest and filesize < 10KB
 }
